@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/regles_jeu"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/puissance4_mdpi"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/_textViewTitreNombreJoueur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="25dp"
+        android:paddingTop="20dp"
+        android:text="@string/titre_nbJoueurs"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/_textViewTexteNombreJoueur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="@string/texte_nbJoueurs"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/_textViewTitreButJeu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="25dp"
+        android:text="@string/titre_butDuJeu"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white"
+        android:textStyle="bold|normal|italic" />
+
+    <TextView
+        android:id="@+id/_textViewTexteButJeu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="@string/texte_butDuJeu"
+        android:textColor="@android:color/white" />
+
+</LinearLayout>

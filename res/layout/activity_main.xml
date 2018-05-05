@@ -1,0 +1,50 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="@drawable/puissance4_mdpi" >
+    
+    <Button
+	    android:id="@+id/_buttonNouvellePartie"
+	    android:layout_width="200dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:textColor="@android:color/white"
+	    android:text="@string/texte_button_nouvellePartie" />
+    
+    <Button
+	    android:id="@+id/_buttonScores"
+	    android:layout_width="200dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:textColor="@android:color/white"
+	    android:text="@string/texte_button_scores" />
+    
+    <Button
+	   	android:id="@+id/_buttonOptions"
+		android:layout_width="200dp"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:textColor="@android:color/white"
+		android:text="@string/texte_button_options" />
+    
+    <Button
+		android:id="@+id/_buttonCredits"
+		android:layout_width="200dp"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:textColor="@android:color/white"
+		android:text="@string/texte_button_credits" />
+    
+    <Button
+   		android:id="@+id/_buttonQuitter"
+		android:layout_width="200dp"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:textColor="@android:color/white"
+		android:text="@string/texte_button_quitter" />
+
+</LinearLayout>

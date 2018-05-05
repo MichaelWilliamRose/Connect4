@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nouvelle_partie_multijoueur_bluetooth"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    android:background="@drawable/puissance4_mdpi" >
+    
+    <Button
+	    android:id="@+id/_buttonCreerPartie"
+	    android:layout_width="200dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:textColor="@android:color/white"
+	    android:text="@string/texte_button_creer_partie_multijoueur_bluetooth" />
+    
+    <Button
+	    android:id="@+id/_buttonRejoindrePartie"
+	    android:layout_width="200dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:textColor="@android:color/white"
+	    android:text="@string/texte_button_rejoindrePartie_multijoueur_bluetooth" />
+
+</LinearLayout>

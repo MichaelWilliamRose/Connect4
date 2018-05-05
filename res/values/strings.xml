@@ -1,0 +1,80 @@
+<resources>
+
+    <!-- Ressources par défaut -->
+    <string name="app_name">Puissance4</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Puissance 4</string>
+    
+    <!-- Ressources générales -->
+    <string name="description_image_jeton_jeu">Jeton de jeu</string>
+    <string name="description_image_jeton_information_creerPartie">Jeton d\'information</string>
+    <string name="description_image_jeton_animation">Jeton d\'animation</string>
+    <string name="texte_information_tour_joueur">Tour de</string>
+    <string name="texte_titre_information_attente_partenaire">En attente du partenaire&#8230;</string>
+    <string name="texte_titre_information_fin_partie">Fin de la partie:</string>
+    <string name="texte_information_fin_partie_gagnant">gagne la partie!</string>
+    <string name="texte_information_fin_partie_egalite">Egalité!</string>
+    <string name="texte_bouton_fin_partie_rejouer">Rejouer</string>
+    <string name="texte_bouton_cache_victoire_quitter">Quitter</string>
+    <string name="texte_rejouer_partie">Rejouez!</string>
+    <string name="texte_nom_joueur_1">Joueur 1</string>
+    <string name="texte_nom_joueur_2">Joueur 2</string>
+    
+    <!-- Ressources de l'activité activity_main -->
+    <string name="texte_button_nouvellePartie">Nouvelle partie</string>
+    <string name="texte_button_scores">Scores</string>
+    <string name="texte_button_options">Options</string>
+    <string name="texte_button_credits">Crédits</string>
+    <string name="texte_button_quitter">Quitter</string>
+    <string name="texte_erreur_bluetooth_indisponible">Bluetooth indisponible.</string>
+    
+    <!-- Ressources de l'activité nouvelle partie -->
+    <string name="titre_activite_nouvellePartie">Nouvelle partie</string>
+    <string name="texte_button_partie_un_joueur">Partie un joueur</string>
+    <string name="texte_button_partie_multijoueur_locale">Partie multijoueur locale</string>
+    <string name="texte_button_partie_multijoueur_bluetooth">Partie multijoueur Bluetooth</string>
+    
+    <!-- Ressources de l'activité partie un joueur -->
+    <string name="titre_activite_partie_un_joueur">Partie un joueur</string>
+    
+    <!-- Ressources de l'activité partie multijoueur locale -->
+    <string name="titre_activite_partie_multijoueur_locale">Partie multijoueur locale</string>
+    
+    <!-- Ressources de l'activité nouvelle partie multijoueur Bluetooth -->
+    <string name="titre_activite_partie_multijoueur_bluetooth">Partie multijoueur Bluetooth</string>
+    <string name="texte_button_creer_partie_multijoueur_bluetooth">Créer une partie</string>
+    <string name="texte_button_rejoindrePartie_multijoueur_bluetooth">Rejoindre une partie</string>
+    
+    <!-- Ressources de l'activité partie multijoueur Bluetooth -->
+    <string name="titre_activite_creer_partie">Créer une partie</string>
+    
+    <!-- Ressources de l'activité rejoindre partie -->
+    <string name="titre_activite_rejoindre_partie">Rejoindre une partie</string>
+    
+    <!-- Ressources de l'activité scores -->
+    <string name="titre_activite_scores">Scores</string>
+    
+    <!-- Ressources de l'activité options -->
+    <string name="titre_activite_options">Options</string>
+    <string name="titre_categorie_joueur">Joueur</string>
+    <string name="titre_option_nom_joueur">Nom du joueur</string>
+    <string name="cle_option_nom_joueur">nomJoueur</string>
+    <string name="resume_option_nom_joueur">Le nom du joueur tel qu\'il apparaîtra dans une partie</string>
+    
+    <!-- Ressources de l'activité credits -->
+    <string name="titre_activite_credits">Crédits</string>
+    <string name="texte_credits">Puissance 4 est un jeu de réflexion deux joueurs et gratuit. L\'application permet de jouer seul (contre le téléphone), à deux sur un téléphone ou encore en Bluetooth (chacun sur son téléphone).</string>
+	<string name="titre_dev"><u>Développeur :</u></string>
+	<string name="liste_developpeurs">Michael Rose</string>
+	<string name="titre_version"><u>Version :</u></string>
+	<string name="texte_version">V 1.0</string>
+	<string name="texte_button_regles_jeu">Règles du jeu</string>
+	
+    <!-- Ressources de l'activitér règles du jeu -->
+	<string name="titre_activite_reglesDuJeu">Règles du jeu</string>
+	<string name="titre_nbJoueurs">Nombre de joueurs :</string>
+	<string name="texte_nbJoueurs">Puissance 4 est un jeu deux joueurs.</string>
+	<string name="titre_butDuJeu">But du jeu :</string>
+	<string name="texte_butDuJeu">Le but du jeu est d’aligner quatre pions sur une grille comptant quarante-deux trous (six rangées sur sept colonnes). Chaque joueur dispose de vingt-et-uns pions d’une couleur (par défaut jaune ou rouge). Tour à tour, les joueurs placent un pion dans la colonne de leur choix, le pion coulisse alors jusqu’à la position la plus basse de la grille. Le vainqueur est le premier à réaliser un alignement (horizontal, vertical ou diagonal) d’au moins quatre pions de la même couleur. Si, alors que toutes les cases de la grille sont remplies, aucun des deux joueurs n’a réalisé un tel alignement, il y a match nul.</string>
+	
+</resources>

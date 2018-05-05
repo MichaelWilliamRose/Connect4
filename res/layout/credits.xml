@@ -1,0 +1,66 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/credits"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/puissance4_mdpi"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/_textViewDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:text="@string/texte_credits"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/_textViewTitreDeveloppeurs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="25dp"
+        android:text="@string/titre_dev"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white"
+        android:textStyle="bold|italic" />
+
+    <TextView
+        android:id="@+id/_textViewListeDeveloppeurs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="40dp"
+        android:paddingBottom="10dp"
+        android:text="@string/liste_developpeurs"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/_textViewTitreVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="25dp"
+        android:text="@string/titre_version"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@android:color/white"
+        android:textStyle="bold|normal|italic" />
+
+    <TextView
+        android:id="@+id/_textViewTexteVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingLeft="40dp"
+        android:paddingTop="10dp"
+        android:text="@string/texte_version"
+        android:textColor="@android:color/white" />
+
+    <Button
+        android:id="@+id/_buttonReglesJeu"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:textColor="@android:color/white"
+        android:text="@string/texte_button_regles_jeu" />
+
+</LinearLayout>
