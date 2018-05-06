@@ -7,36 +7,32 @@
     android:gravity="center_vertical"
     android:background="@drawable/puissance4_mdpi" >
 
-	<Button
-		android:id="@+id/_buttonNouvellePartie"
-		style="@android:style/Widget.Button.Transparent"
-		android:layout_width="200dp"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:text="@string/texte_button_nouvellePartie"
-		android:textColor="@android:color/white" />
+    <Button
+	    android:id="@+id/_buttonNouvellePartie"
+	    android:layout_width="200dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:textColor="@android:color/white"
+	    android:text="@string/texte_button_nouvellePartie" />
 
-	<Button
-		android:id="@+id/_buttonScores"
-		style="@android:style/Widget.Button.Transparent"
-		android:layout_width="200dp"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:text="@string/texte_button_scores"
-		android:textColor="@android:color/white" />
+    <Button
+	    android:id="@+id/_buttonScores"
+	    android:layout_width="200dp"
+	    android:layout_height="wrap_content"
+	    android:layout_gravity="center"
+	    android:textColor="@android:color/white"
+	    android:text="@string/texte_button_scores" />
 
-	<Button
-		android:id="@+id/_buttonOptions"
-		style="@android:style/Widget.Button.Transparent"
+    <Button
+	   	android:id="@+id/_buttonOptions"
 		android:layout_width="200dp"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
-		android:text="@string/texte_button_options"
-		android:textColor="@android:color/white" />
+		android:textColor="@android:color/white"
+		android:text="@string/texte_button_options" />
 
 	<Button
 		android:id="@+id/_buttonReglesJeu"
-		style="@android:style/Widget.Button.Transparent"
 		android:layout_width="200dp"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
@@ -45,7 +41,6 @@
 
 	<Button
 		android:id="@+id/_buttonCredits"
-		style="@android:style/Widget.Button.Transparent"
 		android:layout_width="200dp"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
