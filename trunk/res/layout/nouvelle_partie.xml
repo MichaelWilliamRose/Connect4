@@ -9,7 +9,6 @@
 
 	<Button
 		android:id="@+id/_buttonPartieUnJoueur"
-		style="@android:style/Widget.Button.Transparent"
 		android:layout_width="200dp"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
@@ -18,7 +17,6 @@
 
 	<Button
 		android:id="@+id/_buttonPartieMultijoueurLocale"
-		style="@android:style/Widget.Button.Transparent"
 		android:layout_width="200dp"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
@@ -27,7 +25,6 @@
 
 	<Button
 		android:id="@+id/_buttonPartieMultijoueurBluetooth"
-		style="@android:style/Widget.Button.Transparent"
 		android:layout_width="200dp"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
