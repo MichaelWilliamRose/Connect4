@@ -33,8 +33,8 @@ public class ReglesDuJeu extends Activity implements OnClickListener {
     @Override
     public void onBackPressed() {
     	
-    	// On affiche l'activité Credits
-		Intent intent = new Intent(this.getApplicationContext(), Credits.class);
+    	// On affiche l'activité MainActivity
+		Intent intent = new Intent(this.getApplicationContext(), MainActivity.class);
 		startActivity(intent);
 		// On termine cette activité
 		finish();

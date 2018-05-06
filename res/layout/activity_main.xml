@@ -30,21 +30,21 @@
 		android:layout_gravity="center"
 		android:textColor="@android:color/white"
 		android:text="@string/texte_button_options" />
-    
-    <Button
+
+	<Button
+		android:id="@+id/_buttonReglesJeu"
+		android:layout_width="200dp"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:text="@string/texte_button_regles_jeu"
+		android:textColor="@android:color/white" />
+
+	<Button
 		android:id="@+id/_buttonCredits"
 		android:layout_width="200dp"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center"
-		android:textColor="@android:color/white"
-		android:text="@string/texte_button_credits" />
-    
-    <Button
-   		android:id="@+id/_buttonQuitter"
-		android:layout_width="200dp"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:textColor="@android:color/white"
-		android:text="@string/texte_button_quitter" />
+		android:text="@string/texte_button_credits"
+		android:textColor="@android:color/white" />
 
 </LinearLayout>

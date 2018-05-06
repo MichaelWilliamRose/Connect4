@@ -53,8 +53,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		Button button_nouvellePartie = (Button) findViewById(R.id._buttonNouvellePartie);
 		Button button_scores = (Button) findViewById(R.id._buttonScores);
 		Button button_options = (Button) findViewById(R.id._buttonOptions);
+		Button button_reglesDuJeu = (Button)findViewById(R.id._buttonReglesJeu);
 		Button button_credits = (Button) findViewById(R.id._buttonCredits);
-		Button button_quitter = (Button) findViewById(R.id._buttonQuitter);
 
 		// On initialise chaque élément
 		if (button_nouvellePartie != null) {
@@ -72,14 +72,14 @@ public class MainActivity extends Activity implements OnClickListener {
 			button_options.setOnClickListener(this);
 		}
 
+		if (button_reglesDuJeu != null) {
+			// On ajoute un listener sur le click du bouton
+			button_reglesDuJeu.setOnClickListener(this);
+		}
+
 		if (button_credits != null) {
 			// On ajoute un listener sur le click du bouton
 			button_credits.setOnClickListener(this);
-		}
-
-		if (button_quitter != null) {
-			// On ajoute un listener sur le click du bouton
-			button_quitter.setOnClickListener(this);
 		}
 		
 	}
@@ -105,15 +105,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			// Afficher l'activité concernant les options
 			this.demarrerOptions();
 			break;
-			
+
+		case R.id._buttonReglesJeu:
+			// Afficher l'activité concernant les regles du jeu
+			this.demarrerReglesDuJeu();
+			break;
+
 		case R.id._buttonCredits:
 			// Afficher l'activité concernant les crédits
 			this.demarrerCredits();
-			break;
-			
-		case R.id._buttonQuitter:
-			// Quitter l'application
-			this.quitterApplication();
 			break;
 			
 		default:
@@ -163,6 +163,19 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	/**
+	 * Démarrer l'activité Règles du jeu.
+	 */
+	private void demarrerReglesDuJeu() {
+
+		// Afficher l'activité ReglesDuJeu
+		Intent intentReglesDuJeu = new Intent(_contexteApplication, ReglesDuJeu.class);
+		startActivity(intentReglesDuJeu);
+		// On termine cette activité
+		finish();
+
+	}
+
+	/**
 	 * Démarrer l'activité Credits.
 	 */
 	private void demarrerCredits() {
@@ -173,13 +186,6 @@ public class MainActivity extends Activity implements OnClickListener {
 		// On termine cette activité
 		finish();
 
-	}
-
-	/**
-	 * Quitter l'application.
-	 */
-	private void quitterApplication() {
-		finish();
 	}
 
 }
