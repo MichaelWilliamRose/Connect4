@@ -25,41 +25,41 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 /**
- * Classe de gestion de l'activité PartieMultijoueurLocale.
+ * Classe de gestion de l'activitï¿½ PartieMultijoueurLocale.
  */
 public class PartieMultijoueurLocale extends Activity implements OnClickListener, AnimationListener {
 	
 	// Le contexte de l'application
 	private static Context _contexteApplication = null;
 	
-	// Le handler permettant de mettre à jour l'activité lorsqu'un sous-thread a terminé son travail
+	// Le handler permettant de mettre ï¿½ jour l'activitï¿½ lorsqu'un sous-thread a terminï¿½ son travail
 	private Handler _handler = new Handler();
 	
 	// La liste des jetons
 	private static ArrayList<Integer> _listeJeton = null;
 	
-	// Grille permettant de mémoriser le choix de l'utilisateur
+	// Grille permettant de mï¿½moriser le choix de l'utilisateur
 	private static SparseIntArray _grille = null;
 
-	// La couleur du premier jeton posé (0 = noir, 1 = jaune, 2 = rouge)
+	// La couleur du premier jeton posï¿½ (0 = noir, 1 = jaune, 2 = rouge)
 	private static int _couleurJeton = 0;
 	
-	// Cache d'attente utilisé pour avertir l'attente d'une action de la part de l'autre joueur
+	// Cache d'attente utilisï¿½ pour avertir l'attente d'une action de la part de l'autre joueur
 	private LinearLayout _layoutFinPartie = null;
 	
-	// Booléan permettant de savoir si à la fin d'une partie, il y a égalité
+	// Boolï¿½an permettant de savoir si ï¿½ la fin d'une partie, il y a ï¿½galitï¿½
 	private Boolean _egalite = false;
 	
 	// Jeton d'animation
 	private ImageView _jetonAnimation;
 	
-	// Case libre où le jeton du joueur actuel peut être posé
+	// Case libre oï¿½ le jeton du joueur actuel peut ï¿½tre posï¿½
 	private ImageView _caseLibre;
 	
-	// L'index de la case libre où le jeton du joueur actuel peut être posé
+	// L'index de la case libre oï¿½ le jeton du joueur actuel peut ï¿½tre posï¿½
 	private int _indexCaseLibre;
 	
-	// L'index de la colonne de la case libre où le jeton du joueur actuel peut être posé
+	// L'index de la colonne de la case libre oï¿½ le jeton du joueur actuel peut ï¿½tre posï¿½
 	private int _indexColonneCaseLibre;
 	
 	// Nom du joueur 1
@@ -74,7 +74,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.partie_multijoueur_locale);
 		
-		// Initialiser l'activité
+		// Initialiser l'activitï¿½
 		this.initialisation();
 		
 	}
@@ -89,24 +89,24 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 	@Override
 	public void onBackPressed() {
 		
-		// On affiche l'activité NouvellePartie
+		// On affiche l'activitï¿½ NouvellePartie
 		Intent intent = new Intent(this.getApplicationContext(), NouvellePartie.class);
 		startActivity(intent);
 		
-		// On termine cette activité
+		// On termine cette activitï¿½
 		finish();
 		
 	}
 
 	/**
-	 * Initialiser l'activité.
+	 * Initialiser l'activitï¿½.
 	 */
 	public void initialisation() {
 		
 		// Sauvegarde du contexte de l'application
 		_contexteApplication = this.getApplicationContext();
 		
-		// Bloquer l'orientation de l'activité en mode portrait
+		// Bloquer l'orientation de l'activitï¿½ en mode portrait
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
 		// Initialiser le jeton du joueur qui commece la partie
@@ -159,28 +159,28 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		_listeJeton.add(R.id._imageView41);
 		_listeJeton.add(R.id._imageView42);
 
-		// Grille permettant de mémoriser le choix de l'utilisateur
+		// Grille permettant de mï¿½moriser le choix de l'utilisateur
 		_grille = new SparseIntArray();
 		for (Integer item : _listeJeton) {
 			_grille.append(item, 0);
 		}
 		
-		// Ajout d'un écouteur sur le click pour chaque jeton
+		// Ajout d'un ï¿½couteur sur le click pour chaque jeton
 		for (Integer item : _listeJeton) {
 			
 			final ImageView image = (ImageView) findViewById(item);
 			image.setOnClickListener(new OnClickListener() {
 
 				/**
-				 * Capter l'évènement Click sur la vue.
+				 * Capter l'ï¿½vï¿½nement Click sur la vue.
 				 */
 				public void onClick(View v) {
 					
-					// Ouverture d'un sous-thread permettant de mettre à jour l'activité
+					// Ouverture d'un sous-thread permettant de mettre ï¿½ jour l'activitï¿½
 					_handler.post(new Runnable() {
 				
 						/**
-						 * Exécuter le thread.
+						 * Exï¿½cuter le thread.
 						 */
 						public void run() {
 
@@ -203,13 +203,13 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		// Initialiser le cache de fin de partie
 		_layoutFinPartie = (LinearLayout) findViewById(R.id._linearLayoutFinPartie);
 		
-		// Ajouter les écouteurs sur les boutons du cache de fin de partie
+		// Ajouter les ï¿½couteurs sur les boutons du cache de fin de partie
 		Button boutonFinPartieRejouer = (Button) findViewById(R.id._buttonFinPartieRejouer);
 		Button boutonFinPartieQuitter = (Button) findViewById(R.id._buttonFinPartieQuitter);
 		boutonFinPartieRejouer.setOnClickListener(this);
 		boutonFinPartieQuitter.setOnClickListener(this);
 		
-		// Ne pas afficher le cache de fin de partie tant que la partie n'est pas terminée
+		// Ne pas afficher le cache de fin de partie tant que la partie n'est pas terminï¿½e
 		_layoutFinPartie.setVisibility(View.GONE);
 		
 		// Initialiser le jeton d'animation
@@ -227,7 +227,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 	}
 	
 	/**
-	 * Activer ou désaciver la grille de jeu.
+	 * Activer ou dï¿½saciver la grille de jeu.
 	 * @param activer
 	 */
 	private void activerGrille(Boolean activer) {
@@ -240,7 +240,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 	}
 	
 	/**
-	 * Charger le nom des joueurs depuis les préférences de l'application.
+	 * Charger le nom des joueurs depuis les prï¿½fï¿½rences de l'application.
 	 */
 	private void chargerNomJoueurs() {
 		
@@ -291,18 +291,18 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		
 		if (indexImage < 6) {
 			
-			// 1ère colonne
+			// 1ï¿½re colonne
 			int i = 0;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 6) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 1;
@@ -313,18 +313,18 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		}
 		else if (indexImage < 12) {
 			
-			// 2ème colonne
+			// 2ï¿½me colonne
 			int i = 6;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 12) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 2;
@@ -335,18 +335,18 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		}
 		else if (indexImage < 18) {
 			
-			// 3ème colonne
+			// 3ï¿½me colonne
 			int i = 12;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 18) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 3;
@@ -357,18 +357,18 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		}
 		else if (indexImage < 24) {
 			
-			// 4ème colonne
+			// 4ï¿½me colonne
 			int i = 18;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 24) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 4;
@@ -379,18 +379,18 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		}
 		else if (indexImage < 30) {
 			
-			// 5ème colonne
+			// 5ï¿½me colonne
 			int i = 24;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 30) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 5;
@@ -401,18 +401,18 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		}
 		else if (indexImage < 36) {
 			
-			// 6ème colonne
+			// 6ï¿½me colonne
 			int i = 30;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 36) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 6;
@@ -423,18 +423,18 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		}
 		else if (indexImage < 42) {
 			
-			// 7ème colonne
+			// 7ï¿½me colonne
 			int i = 36;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 42) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 7;
@@ -453,7 +453,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 			_grille.delete(caseLibre.getId());
 			_grille.append(caseLibre.getId(), _couleurJeton);
 		
-			// Créer l'animation
+			// Crï¿½er l'animation
 			LinearLayout linearLayout = (LinearLayout) caseLibre.getParent();
 			TranslateAnimation animation = new TranslateAnimation(caseLibre.getLeft() + 6, caseLibre.getLeft() + 6, 0, linearLayout.getTop() + 6);
 			animation.setStartOffset(0);
@@ -470,7 +470,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 	}
 	
 	/**
-	 * Permet de calculer la durée de l'animation de la pose d'un jeton.
+	 * Permet de calculer la durï¿½e de l'animation de la pose d'un jeton.
 	 * @return
 	 */
 	private int calculerDureeAnimation() {
@@ -506,7 +506,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 	}
 	
 	/**
-	 * Permet de vérifier si la partie est terminée.
+	 * Permet de vï¿½rifier si la partie est terminï¿½e.
 	 * @return
 	 */
 	private Boolean verifierEtatPartieTerminee() {
@@ -521,11 +521,11 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		// Vertical (haut)
 		for (int i = 1; i < 4; i++) {
 			int indexJetonATester = _indexCaseLibre + i; 
-			// Vérifier qu'on est dans la grille
+			// Vï¿½rifier qu'on est dans la grille
 			if(indexJetonATester >= 0 && indexJetonATester < 42) {
-				// Vérifier qu'on ne change pas de colonne
+				// Vï¿½rifier qu'on ne change pas de colonne
 				if (this.estDansMemeColonne(_indexColonneCaseLibre, indexJetonATester)) {
-					// Vérifier si la case contient un jeton de la couleur du joueur
+					// Vï¿½rifier si la case contient un jeton de la couleur du joueur
 					if (_grille.get(_listeJeton.get(indexJetonATester)) == couleur)
 						nombreJetonAlignesVertiale++;
 					else
@@ -572,11 +572,11 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		// Diagonale (haut gauche)
 		for (int i = 1; i < 4; i++) {
 			int indexJetonATester = _indexCaseLibre - (i * 5);
-			// Vérifier qu'on est dans la grille
+			// Vï¿½rifier qu'on est dans la grille
 			if(indexJetonATester >= 0 && indexJetonATester < 42) {
-				// Vérifier qu'on change d'une colonne
+				// Vï¿½rifier qu'on change d'une colonne
 				if (this.estDansMemeColonne(_indexColonneCaseLibre - i, indexJetonATester)) {
-					// Vérifier si la case contient un jeton de la couleur du joueur
+					// Vï¿½rifier si la case contient un jeton de la couleur du joueur
 					if (_grille.get(_listeJeton.get(indexJetonATester)) == couleur)
 						nombreJetonAlignesDigonaleGaucheDroiteBas++;
 					else
@@ -624,7 +624,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 			}
 		}
 		
-		// Sinon vérifier s'il y a égalité
+		// Sinon vï¿½rifier s'il y a ï¿½galitï¿½
 		_egalite = true;
 		for (int i = 0; i < _grille.size(); i++) {
 			if (_grille.valueAt(i) == 0) {
@@ -632,7 +632,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 			}
 		}
 		
-		// Vérifier si le joueur qui vient de poser le jeton a gagné
+		// Vï¿½rifier si le joueur qui vient de poser le jeton a gagnï¿½
 		if ((nombreJetonAlignesVertiale > 3) || 
 				(nombreJetonAlignesHorizontal > 3) || 
 				(nombreJetonAlignesDigonaleGaucheDroiteBas > 3) || 
@@ -651,7 +651,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 	}
 	
 	/**
-	 * Permet de savoir si le jeton se trouve dans la colonne spécifiée.
+	 * Permet de savoir si le jeton se trouve dans la colonne spï¿½cifiï¿½e.
 	 * @param indexColonne
 	 * @param indexJeton
 	 * @return
@@ -705,7 +705,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 	}
 	
 	/**
-	 * Générer un index de jeton alétoire pour la grille de jeu.
+	 * Gï¿½nï¿½rer un index de jeton alï¿½toire pour la grille de jeu.
 	 * @return
 	 */
 	public int genererIndexJetonAleatoire() {
@@ -715,7 +715,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		Random generateurNombreAleatoire = new Random();
 		indexJetonAleatoire = generateurNombreAleatoire.nextInt(42);
 		
-		// Tester si la case n'a pas déjà été prise
+		// Tester si la case n'a pas dï¿½jï¿½ ï¿½tï¿½ prise
 		if (_grille.get(_listeJeton.get(indexJetonAleatoire)) != 0) {
 			indexJetonAleatoire = genererIndexJetonAleatoire();
 		}
@@ -729,20 +729,20 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 	 */
 	public void rejouerPartie() {
 		
-		// Réinitialiser la grille de jeu
+		// Rï¿½initialiser la grille de jeu
 		_grille.clear();
 		for (Integer item : _listeJeton) {
 			_grille.append(item, 0);
 		}
 		
-		// Réinitialiser les jetons
+		// Rï¿½initialiser les jetons
 		for (Integer item : _listeJeton) {
 			ImageView image = (ImageView) findViewById(item);
 			image.setEnabled(true);
 			image.setImageResource(R.drawable.case_grille);
 		}
 		
-		// Réinitialiser le jeton du joueur qui commece la partie
+		// Rï¿½initialiser le jeton du joueur qui commece la partie
 		_couleurJeton = 1;
 		
 		// Modifier la couleur du jeton d'animation pour le prochain joueur
@@ -763,7 +763,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 	}
 
 	/**
-	 * Capter l'évènement Click sur la vue.
+	 * Capter l'ï¿½vï¿½nement Click sur la vue.
 	 */
 	public void onClick(View vue) {
 		
@@ -775,10 +775,10 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 			break;
 			
 		case R.id._buttonFinPartieQuitter:
-			// On affiche l'activité NouvellePartie
+			// On affiche l'activitï¿½ NouvellePartie
 			Intent intentNouvellePartie = new Intent(this.getApplicationContext(), NouvellePartie.class);
 			startActivity(intentNouvellePartie);
-			// On termine cette activité
+			// On termine cette activitï¿½
 			finish();
 			break;
 			
@@ -790,7 +790,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 	}
 
 	/**
-	 * Capter l'évènement de fin d'animation.
+	 * Capter l'ï¿½vï¿½nement de fin d'animation.
 	 */
 	public void onAnimationEnd(Animation animation) {
 		
@@ -819,10 +819,10 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 			
 		}
 		
-		// Vérifier si la partie est terminée
+		// Vï¿½rifier si la partie est terminï¿½e
 		if (this.verifierEtatPartieTerminee()) {
 			
-			// Afficher le jeton du joueur ayant gagné la partie
+			// Afficher le jeton du joueur ayant gagnï¿½ la partie
 			TextView textViewTexteGagantFinPartie = (TextView) findViewById(R.id._textViewTexteGagnantFinPartie);
 			
 			if (_egalite) {
@@ -839,10 +839,13 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 					textViewTexteGagantFinPartie.setCompoundDrawablesWithIntrinsicBounds(R.drawable.jeton_jaune, 0, 0, 0);
 				
 				textViewTexteGagantFinPartie.setText(R.string.texte_information_fin_partie_gagnant);
+
+				// Sauvegarder le score
+				this.sauvegarderScore();
 				
 			}
 			
-			// Désactiver tous les jetons
+			// Dï¿½sactiver tous les jetons
 			this.activerGrille(false);
 			
 			// Afficher le cache de fin de partie
@@ -851,7 +854,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		}
 		else {
 			
-			// Réactiver tous les jetons
+			// Rï¿½activer tous les jetons
 			this.activerGrille(true);
 			
 			// Afficher les informations du joueur
@@ -862,18 +865,41 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 	}
 
 	/**
-	 * Capter l'évènement de répétition de l'animation.
+	 * Sauvegarder le score.
+	 */
+	private void sauvegarderScore() {
+
+		SharedPreferences preferences = getSharedPreferences(MainActivity.PREFERENCES, 0);
+		SharedPreferences.Editor editeur = preferences.edit();
+
+		if (_couleurJeton == 1) {
+			int score = preferences.getInt("score_perdre_locale", 0);
+			score++;
+			editeur.putInt("score_perdre_locale", score);
+		}
+		if (_couleurJeton == 2) {
+			int score = preferences.getInt("score_gagner_locale", 0);
+			score++;
+			editeur.putInt("score_gagner_locale", score);
+		}
+
+		editeur.commit();
+
+	}
+
+	/**
+	 * Capter l'ï¿½vï¿½nement de rï¿½pï¿½tition de l'animation.
 	 */
 	public void onAnimationRepeat(Animation animation) {
 		// Ne rien faire
 	}
 
 	/**
-	 * Capter l'évènement de début d'animation.
+	 * Capter l'ï¿½vï¿½nement de dï¿½but d'animation.
 	 */
 	public void onAnimationStart(Animation animation) {
 		
-		// Désactiver tous les jetons
+		// Dï¿½sactiver tous les jetons
 		this.activerGrille(false);
 		
 	}

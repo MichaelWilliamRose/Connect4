@@ -14,6 +14,9 @@ import android.widget.Button;
  */
 public class MainActivity extends Activity implements OnClickListener {
 
+    // Constantes
+    public static final String PREFERENCES = "fichier_preferences";
+
 	// Contexte de l'application
 	private Context _contexteApplication = null;
 

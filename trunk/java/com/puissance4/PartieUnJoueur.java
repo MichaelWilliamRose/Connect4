@@ -1049,7 +1049,10 @@ public class PartieUnJoueur extends Activity implements OnClickListener, Animati
 					textViewTexteGagantFinPartie.setCompoundDrawablesWithIntrinsicBounds(R.drawable.jeton_jaune, 0, 0, 0);
 				
 				textViewTexteGagantFinPartie.setText(R.string.texte_information_fin_partie_gagnant);
-				
+
+				// Sauvegarder le score
+				this.sauvegarderScore();
+
 			}
 			
 			// D�sactiver tous les jetons
@@ -1078,6 +1081,29 @@ public class PartieUnJoueur extends Activity implements OnClickListener, Animati
 			
 		}
 		
+	}
+
+	/**
+	 * Sauvegarder le score.
+	 */
+	private void sauvegarderScore() {
+
+		SharedPreferences preferences = getSharedPreferences(MainActivity.PREFERENCES, 0);
+		SharedPreferences.Editor editeur = preferences.edit();
+
+		if (_couleurJeton == 1) {
+			int score = preferences.getInt("score_perdre_IA", 0);
+			score++;
+			editeur.putInt("score_perdre_IA", score);
+		}
+		if (_couleurJeton == 2) {
+			int score = preferences.getInt("score_gagner_IA", 0);
+			score++;
+			editeur.putInt("score_gagner_IA", score);
+		}
+
+		editeur.commit();
+
 	}
 
 	/**
