@@ -11,7 +11,7 @@
     <string name="description_image_jeton_animation">Jeton d\'animation</string>
     <string name="texte_information_tour_joueur">Tour de</string>
     <string name="texte_titre_information_attente_partenaire">En attente du partenaire&#8230;</string>
-    <string name="texte_titre_information_fin_partie">Fin de la partie:</string>
+    <string name="texte_titre_information_fin_partie">Fin de la partie</string>
     <string name="texte_information_fin_partie_gagnant">gagne la partie!</string>
     <string name="texte_information_fin_partie_egalite">Egalité!</string>
     <string name="texte_bouton_fin_partie_rejouer">Rejouer</string>
@@ -64,8 +64,10 @@
     <!-- Ressources de l'activité options -->
     <string name="titre_activite_options">Options</string>
     <string name="titre_categorie_joueur">Joueur</string>
-    <string name="titre_option_nom_joueur">Nom du joueur</string>
-    <string name="cle_option_nom_joueur">nomJoueur</string>
+    <string name="titre_option_nom_joueur_1">Nom du joueur 1</string>
+    <string name="titre_option_nom_joueur_2">Nom du joueur 2</string>
+    <string name="cle_option_nom_joueur_1">nomJoueur1</string>
+    <string name="cle_option_nom_joueur_2">nomJoueur2</string>
     <string name="resume_option_nom_joueur">Le nom du joueur tel qu\'il apparaîtra dans une partie</string>
 
     <!-- Ressources de l'activitér règles du jeu -->
@@ -81,7 +83,7 @@
 	<string name="titre_dev"><u>Développeur :</u></string>
 	<string name="liste_developpeurs">Michael Rose</string>
 	<string name="titre_version"><u>Version :</u></string>
-	<string name="texte_version">V 1.0</string>
+	<string name="texte_version">V 1.1</string>
 	<string name="texte_button_regles_jeu">Règles du jeu</string>
 	
 </resources>

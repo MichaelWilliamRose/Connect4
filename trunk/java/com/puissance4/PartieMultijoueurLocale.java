@@ -245,14 +245,14 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 	private void chargerNomJoueurs() {
 		
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String nomJoueur1 = preferences.getString(getString(R.string.cle_option_nom_joueur), getString(R.string.texte_nom_joueur_1));
-		
-		if (nomJoueur1.equalsIgnoreCase("")) {
-			nomJoueur1 = getString(R.string.texte_nom_joueur_1);
-		}
-		
-		_nomJoueur1 = nomJoueur1;		
-		_nomJoueur2 = getString(R.string.texte_nom_joueur_2);
+		_nomJoueur1 = preferences.getString(getString(R.string.cle_option_nom_joueur_1), getString(R.string.texte_nom_joueur_1));
+		_nomJoueur2 = preferences.getString(getString(R.string.cle_option_nom_joueur_2), getString(R.string.texte_nom_joueur_2));
+
+		if (_nomJoueur1.toString().equalsIgnoreCase(""))
+			_nomJoueur1 = getString(R.string.texte_nom_joueur_1);
+
+		if (_nomJoueur2.toString().equalsIgnoreCase(""))
+			_nomJoueur2 = getString(R.string.texte_nom_joueur_2);
 		
 	}
 	
