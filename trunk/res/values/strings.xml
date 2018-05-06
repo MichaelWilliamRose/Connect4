@@ -56,18 +56,25 @@
     <string name="texte_score_partie_un_joueur">Parties contre IA :</string>
     <string name="texte_score_partie_multujoueur_locale">Parties locales :</string>
     <string name="texte_score_partie_multijoueur_bluetooth">Parties Bluetooth :</string>
+    <string name="texte_score_total">Scores totaux :</string>
     <string name="texte_gagner">Gagnées</string>
     <string name="texte_perdre">Perdues</string>
     <string name="texte_score_par_default">0</string>
 
-    
     <!-- Ressources de l'activité options -->
     <string name="titre_activite_options">Options</string>
     <string name="titre_categorie_joueur">Joueur</string>
     <string name="titre_option_nom_joueur">Nom du joueur</string>
     <string name="cle_option_nom_joueur">nomJoueur</string>
     <string name="resume_option_nom_joueur">Le nom du joueur tel qu\'il apparaîtra dans une partie</string>
-    
+
+    <!-- Ressources de l'activitér règles du jeu -->
+    <string name="titre_activite_reglesDuJeu">Règles du jeu</string>
+    <string name="titre_nbJoueurs">Nombre de joueurs :</string>
+    <string name="texte_nbJoueurs">Puissance 4 est un jeu deux joueurs.</string>
+    <string name="titre_butDuJeu">But du jeu :</string>
+    <string name="texte_butDuJeu">Le but du jeu est d’aligner quatre pions sur une grille comptant quarante-deux trous (six rangées sur sept colonnes). Chaque joueur dispose de vingt-et-uns pions d’une couleur (par défaut jaune ou rouge). Tour à tour, les joueurs placent un pion dans la colonne de leur choix, le pion coulisse alors jusqu’à la position la plus basse de la grille. Le vainqueur est le premier à réaliser un alignement (horizontal, vertical ou diagonal) d’au moins quatre pions de la même couleur. Si, alors que toutes les cases de la grille sont remplies, aucun des deux joueurs n’a réalisé un tel alignement, il y a match nul.</string>
+
     <!-- Ressources de l'activité credits -->
     <string name="titre_activite_credits">Crédits</string>
     <string name="texte_credits">Puissance 4 est un jeu de réflexion deux joueurs et gratuit. L\'application permet de jouer seul (contre le téléphone), à deux sur un téléphone ou encore en Bluetooth (chacun sur son téléphone).</string>
@@ -76,12 +83,5 @@
 	<string name="titre_version"><u>Version :</u></string>
 	<string name="texte_version">V 1.0</string>
 	<string name="texte_button_regles_jeu">Règles du jeu</string>
-	
-    <!-- Ressources de l'activitér règles du jeu -->
-	<string name="titre_activite_reglesDuJeu">Règles du jeu</string>
-	<string name="titre_nbJoueurs">Nombre de joueurs :</string>
-	<string name="texte_nbJoueurs">Puissance 4 est un jeu deux joueurs.</string>
-	<string name="titre_butDuJeu">But du jeu :</string>
-	<string name="texte_butDuJeu">Le but du jeu est d’aligner quatre pions sur une grille comptant quarante-deux trous (six rangées sur sept colonnes). Chaque joueur dispose de vingt-et-uns pions d’une couleur (par défaut jaune ou rouge). Tour à tour, les joueurs placent un pion dans la colonne de leur choix, le pion coulisse alors jusqu’à la position la plus basse de la grille. Le vainqueur est le premier à réaliser un alignement (horizontal, vertical ou diagonal) d’au moins quatre pions de la même couleur. Si, alors que toutes les cases de la grille sont remplies, aucun des deux joueurs n’a réalisé un tel alignement, il y a match nul.</string>
 	
 </resources>

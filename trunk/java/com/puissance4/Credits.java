@@ -5,14 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 
 /**
  * Classe de gestion de l'activité Credits.
  */
-public class Credits extends Activity implements OnClickListener {
+public class Credits extends Activity {
 	
 	private Context _contexteApplication;
 	
@@ -52,46 +49,6 @@ public class Credits extends Activity implements OnClickListener {
      * Fonction d'initialisation au démarrage de l'application.
      */
     public void initialisation() {
-    	
-    	Button button_reglesDuJeu = (Button)findViewById(R.id._buttonReglesJeu);
-    	
-    	// On initialise chaque élément
-    	if (button_reglesDuJeu != null) {
-    		// On ajoute un listener sur le click du bouton
-    		button_reglesDuJeu.setOnClickListener(this);
-    	}
-    	
     }
-
-    /**
-     * Capter l'évènement Click sur la vue.
-     */
-	public void onClick(View v) {
-		
-		switch (v.getId()) {
-		
-		case R.id._buttonReglesJeu:
-			this.demarrerReglesDuJeu();
-			break;
-		
-		default:
-			break;
-			
-		}
-		
-	}
-	
-	/**
-	 * Démarrer l'activité Créer une partie.
-	 */
-	private void demarrerReglesDuJeu() {
-		
-		// Afficher l'activité ReglesDuJeu
-		Intent intentReglesDuJeu = new Intent(_contexteApplication, ReglesDuJeu.class);
-		startActivity(intentReglesDuJeu);
-		// On termine cette activité
-		finish();
-		
-	}
 
 }

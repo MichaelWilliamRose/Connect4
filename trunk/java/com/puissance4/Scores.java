@@ -21,6 +21,8 @@ public class Scores extends Activity implements OnClickListener {
     private TextView _textViewScorePerdreLocale = null;
     private TextView _textViewScoreGagnerBluetooth = null;
     private TextView _textViewScorePerdreBluetooth = null;
+    private TextView _textViewScoreGagnerTotal = null;
+    private TextView _textViewScorePerdreTotal = null;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,15 +64,32 @@ public class Scores extends Activity implements OnClickListener {
         _textViewScorePerdreLocale = (TextView) findViewById(R.id._textViewScorePerdreLocale);
         _textViewScoreGagnerBluetooth = (TextView) findViewById(R.id._textViewScoreGagnerBluetooth);
         _textViewScorePerdreBluetooth = (TextView) findViewById(R.id._textViewScorePerdreBluetooth);
+        _textViewScoreGagnerTotal = (TextView) findViewById(R.id._textViewScoreGagnerTotal);
+        _textViewScorePerdreTotal = (TextView) findViewById(R.id._textViewScorePerdreTotal);
 
         // Charger les scores
         SharedPreferences preferences = getSharedPreferences(MainActivity.PREFERENCES, 0);
-        _textViewScoreGagnerIA.setText(Integer.toString(preferences.getInt("score_gagner_IA", 0)));
-        _textViewScorePerdreIA.setText(Integer.toString(preferences.getInt("score_perdre_IA", 0)));
-        _textViewScoreGagnerLocale.setText(Integer.toString(preferences.getInt("score_gagner_locale", 0)));
-        _textViewScorePerdreLocale.setText(Integer.toString(preferences.getInt("score_perdre_locale", 0)));
-        _textViewScoreGagnerBluetooth.setText(Integer.toString(preferences.getInt("score_gagner_bluetooth", 0)));
-        _textViewScorePerdreBluetooth.setText(Integer.toString(preferences.getInt("score_perdre_bluetooth", 0)));
+
+        int scoreGagnerIA = preferences.getInt("score_gagner_IA", 0);
+        int scorePerdreIA = preferences.getInt("score_perdre_IA", 0);
+        int scoreGagnerLocale = preferences.getInt("score_gagner_locale", 0);
+        int scorePerdreLocale = preferences.getInt("score_perdre_locale", 0);
+        int scoreGagnerBluetooth = preferences.getInt("score_gagner_bluetooth", 0);
+        int scorePerdreBluetooth = preferences.getInt("score_perdre_bluetooth", 0);
+
+        _textViewScoreGagnerIA.setText(Integer.toString(scoreGagnerIA));
+        _textViewScorePerdreIA.setText(Integer.toString(scorePerdreIA));
+        _textViewScoreGagnerLocale.setText(Integer.toString(scoreGagnerLocale));
+        _textViewScorePerdreLocale.setText(Integer.toString(scorePerdreLocale));
+        _textViewScoreGagnerBluetooth.setText(Integer.toString(scoreGagnerBluetooth));
+        _textViewScorePerdreBluetooth.setText(Integer.toString(scorePerdreBluetooth));
+
+        // Calcul des totaux
+        int totalGagner = scoreGagnerIA + scoreGagnerLocale + scoreGagnerBluetooth;
+        int totalPerdre = scorePerdreIA + scorePerdreLocale + scorePerdreBluetooth;
+
+        _textViewScoreGagnerTotal.setText(Integer.toString(totalGagner));
+        _textViewScorePerdreTotal.setText(Integer.toString(totalPerdre));
 
     }
 	
