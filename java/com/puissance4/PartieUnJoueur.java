@@ -450,7 +450,7 @@ public class PartieUnJoueur extends Activity implements OnClickListener, Animati
 			
 			// Cr�er l'animation
 			LinearLayout linearLayout = (LinearLayout) caseLibre.getParent();
-			TranslateAnimation animation = new TranslateAnimation(caseLibre.getLeft() + 6, caseLibre.getLeft() + 6, 0, linearLayout.getTop() + 6);
+			TranslateAnimation animation = new TranslateAnimation(caseLibre.getLeft() + 12, caseLibre.getLeft() + 12, 0, linearLayout.getTop());
 			animation.setStartOffset(0);
 			animation.setFillAfter(true);
 			animation.setDuration(this.calculerDureeAnimation());
