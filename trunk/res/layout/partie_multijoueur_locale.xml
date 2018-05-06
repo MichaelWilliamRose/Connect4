@@ -3,7 +3,7 @@
     android:id="@+id/partie_multijoueur_locale"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black" >
+    android:background="@android:color/background_light">
 
 	<LinearLayout
 		android:id="@+id/_linearLayoutGrille"
@@ -17,6 +17,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
 			android:layout_weight="0.2"
+			android:background="@drawable/sommet_grille"
 			android:orientation="horizontal">
 
 			<ImageView
@@ -471,7 +472,7 @@
 			android:layout_width="match_parent"
 			android:layout_height="0dp"
 			android:layout_weight="0.53"
-			android:background="@android:color/black"
+			android:background="@drawable/socle_grille"
 			android:orientation="vertical">
 
 			<TextView
@@ -483,7 +484,7 @@
 				android:gravity="center"
 				android:text="@string/texte_information_tour_joueur"
 				android:textAppearance="?android:attr/textAppearanceLarge"
-				android:textColor="@android:color/white" />
+				android:textColor="@android:color/black" />
 
 			<ImageView
 				android:id="@+id/_imageViewTourJoueur"
@@ -492,6 +493,7 @@
 				android:layout_gravity="center"
 				android:layout_weight="0.5"
 				android:contentDescription="@string/description_image_jeton_information_creerPartie"
+				android:paddingBottom="25dp"
 				android:scaleType="fitCenter"
 				android:src="@drawable/jeton_noir" />
 
@@ -539,7 +541,6 @@
 
 		<LinearLayout
 			android:id="@+id/_linearLayoutChoixFinPartie"
-			style="@android:attr/buttonBarStyle"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:gravity="center"
@@ -547,7 +548,6 @@
 
 			<Button
 				android:id="@+id/_buttonFinPartieRejouer"
-				style="@android:attr/buttonBarButtonStyle"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:gravity="center"
@@ -556,7 +556,6 @@
 
 			<Button
 				android:id="@+id/_buttonFinPartieQuitter"
-				style="@android:attr/buttonBarButtonStyle"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:gravity="center"
