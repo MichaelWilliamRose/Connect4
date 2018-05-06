@@ -53,6 +53,13 @@
     
     <!-- Ressources de l'activité scores -->
     <string name="titre_activite_scores">Scores</string>
+    <string name="texte_score_partie_un_joueur">Parties contre IA :</string>
+    <string name="texte_score_partie_multujoueur_locale">Parties locales :</string>
+    <string name="texte_score_partie_multijoueur_bluetooth">Parties Bluetooth :</string>
+    <string name="texte_gagner">Gagnées</string>
+    <string name="texte_perdre">Perdues</string>
+    <string name="texte_score_par_default">0</string>
+
     
     <!-- Ressources de l'activité options -->
     <string name="titre_activite_options">Options</string>

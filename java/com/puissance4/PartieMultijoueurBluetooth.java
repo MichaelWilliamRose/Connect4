@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,7 +31,7 @@ import com.service.ServiceBluetooth;
 import com.service.ServicePartieBluetooth;
 
 /**
- * Classe de gestion de l'activité PartieMultijoueurBluetooth.
+ * Classe de gestion de l'activitï¿½ PartieMultijoueurBluetooth.
  */
 public class PartieMultijoueurBluetooth extends Activity implements OnClickListener, AnimationListener {
 	
@@ -40,41 +41,41 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 	// Le service permettant de jouer une partie Bluetooth
 	private ServicePartieBluetooth _servicePartieBluetooth = null;
 	
-	// Le Handler qui récupère les informations en retour du ServicePartieBluetooth 
-    // et permettant de mettre à jour l'activité lorsqu'un sous-thread a terminé son travail
+	// Le Handler qui rï¿½cupï¿½re les informations en retour du ServicePartieBluetooth 
+    // et permettant de mettre ï¿½ jour l'activitï¿½ lorsqu'un sous-thread a terminï¿½ son travail
     private HandlerActionJoueur _handler = new HandlerActionJoueur(this);
 	
 	// La liste des jetons
 	private static ArrayList<Integer> _listeJeton = null;
 	
-	// Grille permettant de mémoriser le choix de l'utilisateur
+	// Grille permettant de mï¿½moriser le choix de l'utilisateur
 	private static SparseIntArray _grille = null;
 	
-	// La couleur du premier jeton posé (0 = noir, 1 = jaune, 2 = rouge)
+	// La couleur du premier jeton posï¿½ (0 = noir, 1 = jaune, 2 = rouge)
 	private static int _couleurJeton = 0;
 	
-	// Cache d'attente utilisé pour avertir l'attente de connexion de la part d'un autre joueur
+	// Cache d'attente utilisï¿½ pour avertir l'attente de connexion de la part d'un autre joueur
 	private static LinearLayout _layoutAttentePartenaire = null;
 	
-	// Barre de progression utilisé pour avertir de l'attente d'une action de la part de l'autre joueur
+	// Barre de progression utilisï¿½ pour avertir de l'attente d'une action de la part de l'autre joueur
 	private static ProgressBar _progressBarAttentePartenaire = null;
 	
-	// Cache d'attente utilisé pour avertir l'attente d'une action de la part de l'autre joueur
+	// Cache d'attente utilisï¿½ pour avertir l'attente d'une action de la part de l'autre joueur
 	private static LinearLayout _layoutFinPartie = null;
 	
-	// Booléan permettant de savoir si à la fin d'une partie, il y a égalité
+	// Boolï¿½an permettant de savoir si ï¿½ la fin d'une partie, il y a ï¿½galitï¿½
 	private Boolean _egalite = false;
 	
 	// Jeton d'animation
 	private ImageView _jetonAnimation;
 	
-	// Case libre où le jeton du joueur actuel peut être posé
+	// Case libre oï¿½ le jeton du joueur actuel peut ï¿½tre posï¿½
 	private ImageView _caseLibre;
 	
-	// L'index de la case libre où le jeton du joueur actuel peut être posé
+	// L'index de la case libre oï¿½ le jeton du joueur actuel peut ï¿½tre posï¿½
 	private int _indexCaseLibre;
 	
-	// L'index de la colonne de la case libre où le jeton du joueur actuel peut être posé
+	// L'index de la colonne de la case libre oï¿½ le jeton du joueur actuel peut ï¿½tre posï¿½
 	private int _indexColonneCaseLibre;
 	
 	// Nom du joueur 1
@@ -83,16 +84,16 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 	// Nom du joueur 2
 	private static String _nomJoueur2;
 	
-	// Variables permettant de savoir de quel périphérique on traite (émetteur ou receveur)
+	// Variables permettant de savoir de quel pï¿½riphï¿½rique on traite (ï¿½metteur ou receveur)
 	private static String _typePeripherique;
 	private static final String EMETTEUR = "Emetteur";
 	private static final String RECEVEUR = "Receveur";
 
-	// Variables utilisées pour le débogage
+	// Variables utilisï¿½es pour le dï¿½bogage
     private static final String TAG = "Puissance4_Bluetooth";
     private static final boolean D = true;
 	
-    // Les différents types de messages envoyés depuis le Handler du ServicePartieBluetooth
+    // Les diffï¿½rents types de messages envoyï¿½s depuis le Handler du ServicePartieBluetooth
     public static final int CHANGEMENT_ETAT_CONNEXION = 1;
     public static final int DONNEES_LECTURE = 2;
     public static final int DONNEES_ECRITURE = 3;
@@ -100,22 +101,22 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
     public static final int MESSAGE_TOAST = 5;
     public static final int REJOUER_PARTIE = -1;
 
-    // Noms clés reçus depuis le Handler du ServicePartieBluetooth
+    // Noms clï¿½s reï¿½us depuis le Handler du ServicePartieBluetooth
     public static final String NOM_PERIPHERIQUE = "device_name";
     public static final String TOAST = "toast";
 	
     /**
-     * Classe représentant le Handler des actions des joueurs.
+     * Classe reprï¿½sentant le Handler des actions des joueurs.
      */
     private static class HandlerActionJoueur extends Handler {
     	
-    	// WeakReference nécessaire afin de résourdre le warning :
-    	// Android Handler – The handler class should be static or leak might occur
+    	// WeakReference nï¿½cessaire afin de rï¿½sourdre le warning :
+    	// Android Handler ï¿½ The handler class should be static or leak might occur
     	// Voir : http://ucla.jamesyxu.com/?p=285
-    	// Explications: Sans la WeakReference vers l'activité PartieMultijoueurBluetooth, la classe Handler va
-    	//               automatiquement garder une copie de l'activité PartieMultijoueurBluetooth. Cette copie
-    	//               ne sera pas traitable par le GarbageCollector ce qui empêchera la libération totale des
-    	//               ressources de l'activité.
+    	// Explications: Sans la WeakReference vers l'activitï¿½ PartieMultijoueurBluetooth, la classe Handler va
+    	//               automatiquement garder une copie de l'activitï¿½ PartieMultijoueurBluetooth. Cette copie
+    	//               ne sera pas traitable par le GarbageCollector ce qui empï¿½chera la libï¿½ration totale des
+    	//               ressources de l'activitï¿½.
     	private WeakReference<PartieMultijoueurBluetooth> _reference;
     	
     	/**
@@ -187,9 +188,9 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
             
         	case CONENXION_REUSSIE:
         		
-            	Toast.makeText(_contexteApplication, "Début de la partie !", Toast.LENGTH_SHORT).show();
+            	Toast.makeText(_contexteApplication, "Dï¿½but de la partie !", Toast.LENGTH_SHORT).show();
             	
-            	// Enlever le cache d'attente une fois que la partie a commencé
+            	// Enlever le cache d'attente une fois que la partie a commencï¿½
         		_layoutAttentePartenaire.setVisibility(View.GONE);
         		
         		// Activer tous les jetons
@@ -217,7 +218,7 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.partie_multijoueur_bluetooth);
 		
-		// Initialiser l'activité
+		// Initialiser l'activitï¿½
 		this.initialisation();
 		
 	}
@@ -235,28 +236,28 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		// Fermeture de tous les Threads
 		_servicePartieBluetooth.stop();
 		
-		// On affiche l'activité nouvelle partie
+		// On affiche l'activitï¿½ nouvelle partie
 		Intent intent = new Intent(this.getApplicationContext(), NouvellePartieMultijoueurBluetooth.class);
 		startActivity(intent);
 		
-		// On termine cette activité
+		// On termine cette activitï¿½
 		finish();
 		
 	}
 
 	/**
-	 * Initialiser l'activité.
+	 * Initialiser l'activitï¿½.
 	 */
 	public void initialisation() {
 		
 		// Sauvegarde du contexte de l'application
 		_contexteApplication = this.getApplicationContext();
 		
-		// Démarrer le serveur Bluetooth
+		// Dï¿½marrer le serveur Bluetooth
 		_servicePartieBluetooth = new ServicePartieBluetooth(this, _handler);
 		_servicePartieBluetooth.demarrerServeurBluetooth();
 		
-		// Bloquer l'orientation de l'activité en mode portrait
+		// Bloquer l'orientation de l'activitï¿½ en mode portrait
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		
 		// Initialiser le jeton du joueur qui commece la partie
@@ -309,24 +310,24 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		_listeJeton.add(R.id._imageView41);
 		_listeJeton.add(R.id._imageView42);
 
-		// Grille permettant de mémoriser le choix de l'utilisateur
+		// Grille permettant de mï¿½moriser le choix de l'utilisateur
 		_grille = new SparseIntArray();
 		for (Integer item : _listeJeton) {
 			_grille.append(item, 0);
 		}
 		
-		// Ajout d'un écouteur sur le click pour chaque jeton
+		// Ajout d'un ï¿½couteur sur le click pour chaque jeton
 		for (Integer item : _listeJeton) {
 			
 			final ImageView image = (ImageView) findViewById(item);
 			image.setOnClickListener(new OnClickListener() {
 
 				/**
-				 * Capter l'évènement Click sur la vue.
+				 * Capter l'ï¿½vï¿½nement Click sur la vue.
 				 */
 				public void onClick(View v) {
 					
-					// Envoyer l'index de la case libre au deux périphériques
+					// Envoyer l'index de la case libre au deux pï¿½riphï¿½riques
 		            byte[] indexJeton = Integer.toString(_listeJeton.indexOf(image.getId())).getBytes();
 		            _servicePartieBluetooth.ecrire(indexJeton);
 					
@@ -354,27 +355,27 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		// Initialiser le cache d'attente d'une action
 		_progressBarAttentePartenaire = (ProgressBar) findViewById(R.id._progressBarAttentePartenaire);
 		
-		// Afficher le cache d'attente de connexion tant que la partie n'a pas commencé et cacher le cache d'attente d'une action 
+		// Afficher le cache d'attente de connexion tant que la partie n'a pas commencï¿½ et cacher le cache d'attente d'une action 
 		_layoutAttentePartenaire.setVisibility(View.VISIBLE);
 		_progressBarAttentePartenaire.setVisibility(View.INVISIBLE);
 		
-		// Désactiver tous les jetons
+		// Dï¿½sactiver tous les jetons
 		this.activerGrille(false);
 		
 		// Initialiser le cache de fin de partie
 		_layoutFinPartie = (LinearLayout) findViewById(R.id._linearLayoutFinPartie);
 		
-		// Ajouter les écouteurs sur les boutons du cache de fin de partie
+		// Ajouter les ï¿½couteurs sur les boutons du cache de fin de partie
 		Button boutonFinPartieRejouer = (Button) findViewById(R.id._buttonFinPartieRejouer);
 		Button boutonFinPartieQuitter = (Button) findViewById(R.id._buttonFinPartieQuitter);
 		boutonFinPartieRejouer.setOnClickListener(this);
 		boutonFinPartieQuitter.setOnClickListener(this);
 		
-		// Ne pas affiche le cache de fin de partie tant que la partie n'est pas terminée
+		// Ne pas affiche le cache de fin de partie tant que la partie n'est pas terminï¿½e
 		_layoutFinPartie.setVisibility(View.GONE);
 		
-		// Tenter de récupérer de l'adresse d'un périphérique sélectionné
-		// (dans le cas d'une connexion depuis l'activité RejoindrePartie)
+		// Tenter de rï¿½cupï¿½rer de l'adresse d'un pï¿½riphï¿½rique sï¿½lectionnï¿½
+		// (dans le cas d'une connexion depuis l'activitï¿½ RejoindrePartie)
 		Intent intentRejoindrePartie = this.getIntent();
 		if (intentRejoindrePartie.hasExtra(RejoindrePartie.ADRESSE_PERIPHERIQUE)) {
 			this.connexionPeripherique(intentRejoindrePartie, true);
@@ -383,7 +384,7 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 	}
 	
 	/**
-	 * Activer ou désaciver la grille de jeu.
+	 * Activer ou dï¿½saciver la grille de jeu.
 	 * @param activer
 	 */
 	private void activerGrille(Boolean activer) {
@@ -396,14 +397,14 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 	}
 	
 	/**
-	 * Charger le nom des joueurs depuis les préférences de l'application.
+	 * Charger le nom des joueurs depuis les prï¿½fï¿½rences de l'application.
 	 */
 	private void chargerNomJoueurs() {
 
-		// Nom par défaut du joueur 1
+		// Nom par dï¿½faut du joueur 1
 		_nomJoueur1 = getString(R.string.texte_nom_joueur_1);
 		
-		// Nom par défaut du joueur 2
+		// Nom par dï¿½faut du joueur 2
 		_nomJoueur2 = getString(R.string.texte_nom_joueur_2);
 		
 	}
@@ -428,13 +429,13 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 	}
 	
 	/**
-	 * Connexion à un périphérique.
+	 * Connexion ï¿½ un pï¿½riphï¿½rique.
 	 * @param intent
 	 * @param connexionSecurisee
 	 */
 	private void connexionPeripherique(Intent intent, boolean connexionSecurisee) {
 		
-        // Obtenir l'adresse MAC du périphérique
+        // Obtenir l'adresse MAC du pï¿½riphï¿½rique
         String adresseMac = intent.getExtras().getString(RejoindrePartie.ADRESSE_PERIPHERIQUE);
         
         // Obtenir l'objet BluetoothDevice
@@ -462,18 +463,18 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		
 		if (indexImage < 6) {
 			
-			// 1ère colonne
+			// 1ï¿½re colonne
 			int i = 0;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 6) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 1;
@@ -484,18 +485,18 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		}
 		else if (indexImage < 12) {
 			
-			// 2ème colonne
+			// 2ï¿½me colonne
 			int i = 6;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 12) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 2;
@@ -506,18 +507,18 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		}
 		else if (indexImage < 18) {
 			
-			// 3ème colonne
+			// 3ï¿½me colonne
 			int i = 12;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 18) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 3;
@@ -528,18 +529,18 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		}
 		else if (indexImage < 24) {
 			
-			// 4ème colonne
+			// 4ï¿½me colonne
 			int i = 18;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 24) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 4;
@@ -550,18 +551,18 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		}
 		else if (indexImage < 30) {
 			
-			// 5ème colonne
+			// 5ï¿½me colonne
 			int i = 24;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 30) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 5;
@@ -572,18 +573,18 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		}
 		else if (indexImage < 36) {
 			
-			// 6ème colonne
+			// 6ï¿½me colonne
 			int i = 30;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 36) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 6;
@@ -594,18 +595,18 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		}
 		else if (indexImage < 42) {
 			
-			// 7ème colonne
+			// 7ï¿½me colonne
 			int i = 36;
 			while (_grille.get(_listeJeton.get(i)) != 0) {
 				i++;
-				// Si on a atteint le dernier jeton de la grille (en haut à droite)
+				// Si on a atteint le dernier jeton de la grille (en haut ï¿½ droite)
 				if (i == 42)
 					break;
 			}
 			
 			if (i < 42) {
 				
-				// Si la colonne n'est pas entièrement remplie, récupérer la case libre
+				// Si la colonne n'est pas entiï¿½rement remplie, rï¿½cupï¿½rer la case libre
 				caseLibre = (ImageView)findViewById(_listeJeton.get(i));
 				_indexCaseLibre = i;
 				_indexColonneCaseLibre = 7;
@@ -624,7 +625,7 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 			_grille.delete(caseLibre.getId());
 			_grille.append(caseLibre.getId(), _couleurJeton);
 		
-			// Créer l'animation
+			// Crï¿½er l'animation
 			LinearLayout linearLayout = (LinearLayout) caseLibre.getParent();
 			TranslateAnimation animation = new TranslateAnimation(caseLibre.getLeft() + 6, caseLibre.getLeft() + 6, 0, linearLayout.getTop() + 6);
 			animation.setStartOffset(0);
@@ -641,7 +642,7 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 	}
 	
 	/**
-	 * Permet de calculer la durée de l'animation de la pose d'un jeton.
+	 * Permet de calculer la durï¿½e de l'animation de la pose d'un jeton.
 	 * @return
 	 */
 	private int calculerDureeAnimation() {
@@ -677,7 +678,7 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 	}
 	
 	/**
-	 * Permet de vérifier si la partie est terminée.
+	 * Permet de vï¿½rifier si la partie est terminï¿½e.
 	 * @return
 	 */
 	private Boolean verifierEtatPartieTerminee() {
@@ -692,11 +693,11 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		// Vertical (haut)
 		for (int i = 1; i < 4; i++) {
 			int indexJetonATester = _indexCaseLibre + i; 
-			// Vérifier qu'on est dans la grille
+			// Vï¿½rifier qu'on est dans la grille
 			if(indexJetonATester >= 0 && indexJetonATester < 42) {
-				// Vérifier qu'on ne change pas de colonne
+				// Vï¿½rifier qu'on ne change pas de colonne
 				if (this.estDansMemeColonne(_indexColonneCaseLibre, indexJetonATester)) {
-					// Vérifier si la case contient un jeton de la couleur du joueur
+					// Vï¿½rifier si la case contient un jeton de la couleur du joueur
 					if (_grille.get(_listeJeton.get(indexJetonATester)) == couleur)
 						nombreJetonAlignesVertiale++;
 					else
@@ -743,11 +744,11 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		// Diagonale (haut gauche)
 		for (int i = 1; i < 4; i++) {
 			int indexJetonATester = _indexCaseLibre - (i * 5);
-			// Vérifier qu'on est dans la grille
+			// Vï¿½rifier qu'on est dans la grille
 			if(indexJetonATester >= 0 && indexJetonATester < 42) {
-				// Vérifier qu'on change d'une colonne
+				// Vï¿½rifier qu'on change d'une colonne
 				if (this.estDansMemeColonne(_indexColonneCaseLibre - i, indexJetonATester)) {
-					// Vérifier si la case contient un jeton de la couleur du joueur
+					// Vï¿½rifier si la case contient un jeton de la couleur du joueur
 					if (_grille.get(_listeJeton.get(indexJetonATester)) == couleur)
 						nombreJetonAlignesDigonaleGaucheDroiteBas++;
 					else
@@ -795,7 +796,7 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 			}
 		}
 		
-		// Sinon vérifier s'il y a égalité
+		// Sinon vï¿½rifier s'il y a ï¿½galitï¿½
 		_egalite = true;
 		for (int i = 0; i < _grille.size(); i++) {
 			if (_grille.valueAt(i) == 0) {
@@ -803,7 +804,7 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 			}
 		}
 		
-		// Vérifier si le joueur qui vient de poser le jeton a gagné
+		// Vï¿½rifier si le joueur qui vient de poser le jeton a gagnï¿½
 		if ((nombreJetonAlignesVertiale > 3) || 
 				(nombreJetonAlignesHorizontal > 3) || 
 				(nombreJetonAlignesDigonaleGaucheDroiteBas > 3) || 
@@ -822,7 +823,7 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 	}
 	
 	/**
-	 * Permet de savoir si le jeton se trouve dans la colonne spécifiée.
+	 * Permet de savoir si le jeton se trouve dans la colonne spï¿½cifiï¿½e.
 	 * @param indexColonne
 	 * @param indexJeton
 	 * @return
@@ -880,20 +881,20 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 	 */
 	public void rejouerPartie() {
 		
-		// Réinitialiser la grille de jeu
+		// Rï¿½initialiser la grille de jeu
 		_grille.clear();
 		for (Integer item : _listeJeton) {
 			_grille.append(item, 0);
 		}
 		
-		// Réinitialiser les jetons
+		// Rï¿½initialiser les jetons
 		for (Integer item : _listeJeton) {
 			ImageView image = (ImageView) findViewById(item);
 			image.setEnabled(true);
 			image.setImageResource(R.drawable.case_grille);
 		}
 		
-		// Réinitialiser le jeton du joueur qui commece la partie
+		// Rï¿½initialiser le jeton du joueur qui commece la partie
 		_couleurJeton = 1;
 		
 		// Modifier la couleur du jeton d'animation pour le prochain joueur
@@ -914,7 +915,7 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 	}
 	
 	/**
-	 * Capter l'évènement Click sur la vue.
+	 * Capter l'ï¿½vï¿½nement Click sur la vue.
 	 */
 	public void onClick(View vue) {
 		
@@ -929,10 +930,10 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 		case R.id._buttonFinPartieQuitter:
 			// Fermeture de tous les Threads
 			_servicePartieBluetooth.stop();
-			// On affiche l'activité NouvellePartieMultijoueurBluetooth
+			// On affiche l'activitï¿½ NouvellePartieMultijoueurBluetooth
 			Intent intentNouvellePartieMultijoueurBluetooth = new Intent(this.getApplicationContext(), NouvellePartieMultijoueurBluetooth.class);
 			startActivity(intentNouvellePartieMultijoueurBluetooth);
-			// On termine cette activité
+			// On termine cette activitï¿½
 			finish();
 			break;
 			
@@ -944,7 +945,7 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 	}
 	
 	/**
-	 * Capter l'évènement de fin d'animation.
+	 * Capter l'ï¿½vï¿½nement de fin d'animation.
 	 */
 	public void onAnimationEnd(Animation animation) {
 		
@@ -973,10 +974,10 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 			
 		}
 		
-		// Vérifier si la partie est terminée
+		// Vï¿½rifier si la partie est terminï¿½e
 		if (this.verifierEtatPartieTerminee()) {
 			
-			// Afficher le jeton du joueur ayant gagné la partie
+			// Afficher le jeton du joueur ayant gagnï¿½ la partie
 			TextView textViewTexteGagantFinPartie = (TextView) findViewById(R.id._textViewTexteGagnantFinPartie);
 			
 			if (_egalite) {
@@ -993,10 +994,13 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 					textViewTexteGagantFinPartie.setCompoundDrawablesWithIntrinsicBounds(R.drawable.jeton_jaune, 0, 0, 0);
 				
 				textViewTexteGagantFinPartie.setText(R.string.texte_information_fin_partie_gagnant);
+
+				// Sauvegarder le score
+				this.sauvegarderScore();
 				
 			}
 			
-			// Désactiver tous les jetons
+			// Dï¿½sactiver tous les jetons
 			this.activerGrille(false);
 			
 			// Enlever le cache d'attente d'une action
@@ -1010,7 +1014,7 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 			
 			if (_typePeripherique == RECEVEUR) {
 				
-				// Réactiver tous les jetons
+				// Rï¿½activer tous les jetons
 				this.activerGrille(true);
 				
 			}
@@ -1029,18 +1033,41 @@ public class PartieMultijoueurBluetooth extends Activity implements OnClickListe
 	}
 
 	/**
-	 * Capter l'évènement de répétition de l'animation.
+	 * Sauvegarder le score.
+	 */
+	private void sauvegarderScore() {
+
+		SharedPreferences preferences = getSharedPreferences(MainActivity.PREFERENCES, 0);
+		SharedPreferences.Editor editeur = preferences.edit();
+
+		if (_couleurJeton == 1) {
+			int score = preferences.getInt("score_perdre_bluetooth", 0);
+			score++;
+			editeur.putInt("score_perdre_bluetooth", score);
+		}
+		if (_couleurJeton == 2) {
+			int score = preferences.getInt("score_gagner_bluetooth", 0);
+			score++;
+			editeur.putInt("score_gagner_bluetooth", score);
+		}
+
+		editeur.commit();
+
+	}
+
+	/**
+	 * Capter l'ï¿½vï¿½nement de rï¿½pï¿½tition de l'animation.
 	 */
 	public void onAnimationRepeat(Animation animation) {
 		// Ne rien faire
 	}
 
 	/**
-	 * Capter l'évènement de début d'animation.
+	 * Capter l'ï¿½vï¿½nement de dï¿½but d'animation.
 	 */
 	public void onAnimationStart(Animation animation) {
 		
-		// Désactiver tous les jetons
+		// Dï¿½sactiver tous les jetons
 		this.activerGrille(false);
 		
 		// Enlever la barre de progression d'attente d'une action
