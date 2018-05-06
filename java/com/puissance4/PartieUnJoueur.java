@@ -250,7 +250,7 @@ public class PartieUnJoueur extends Activity implements OnClickListener, Animati
 	private void chargerNomJoueur() {
 		
 		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		String nomJoueur = preferences.getString(getString(R.string.cle_option_nom_joueur), getString(R.string.texte_nom_joueur_1));
+		String nomJoueur = preferences.getString(getString(R.string.cle_option_nom_joueur_1), getString(R.string.texte_nom_joueur_1));
 		
 		if (nomJoueur.equalsIgnoreCase("")) {
 			nomJoueur = getString(R.string.texte_nom_joueur_1);

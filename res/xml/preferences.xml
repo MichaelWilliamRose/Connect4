@@ -1,11 +1,18 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">    
     
     <PreferenceCategory android:title="@string/titre_categorie_joueur">
-        
-        <EditTextPreference 
-            android:title="@string/titre_option_nom_joueur" 
-            android:key="@string/cle_option_nom_joueur"
-            android:summary="@string/resume_option_nom_joueur" />
+
+        <EditTextPreference
+            android:defaultValue="@string/texte_nom_joueur_1"
+            android:key="@string/cle_option_nom_joueur_1"
+            android:summary="@string/resume_option_nom_joueur"
+            android:title="@string/titre_option_nom_joueur_1" />
+
+        <EditTextPreference
+            android:defaultValue="@string/texte_nom_joueur_2"
+            android:key="@string/cle_option_nom_joueur_2"
+            android:summary="@string/resume_option_nom_joueur"
+            android:title="@string/titre_option_nom_joueur_2" />
         
     </PreferenceCategory>
     
