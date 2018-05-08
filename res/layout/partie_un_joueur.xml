@@ -484,7 +484,8 @@
                 android:gravity="center"
                 android:text="@string/texte_information_tour_joueur"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/black" />
+                android:textColor="@android:color/black"
+                android:visibility="invisible" />
 
             <ImageView
                 android:id="@+id/_imageViewTourJoueur"
@@ -495,7 +496,8 @@
                 android:contentDescription="@string/description_image_jeton_information_creerPartie"
                 android:paddingBottom="25dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/jeton_noir" />
+                android:src="@drawable/jeton_noir"
+                android:visibility="invisible" />
 
         </LinearLayout>
 
