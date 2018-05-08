@@ -43,6 +43,9 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 
 	// La couleur du premier jeton pos� (0 = noir, 1 = jaune, 2 = rouge)
 	private static int _couleurJeton = 0;
+
+	// La couleur du jeton du joueur ayant commenc� la partie pr�c�dente
+	private static int _couleurJetonCommencePartiePrecedente = 0;
 	
 	// Cache d'attente utilis� pour avertir l'attente d'une action de la part de l'autre joueur
 	private LinearLayout _layoutFinPartie = null;
@@ -111,6 +114,7 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		
 		// Initialiser le jeton du joueur qui commece la partie
 		_couleurJeton = 1;
+		_couleurJetonCommencePartiePrecedente = _couleurJeton;
 		
 		// La liste des jetons
 		_listeJeton = new ArrayList<Integer>();
@@ -455,7 +459,9 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 		
 			// Cr�er l'animation
 			LinearLayout linearLayout = (LinearLayout) caseLibre.getParent();
-			TranslateAnimation animation = new TranslateAnimation(caseLibre.getLeft() + 12, caseLibre.getLeft() + 12, 0, linearLayout.getTop());
+			float divider = 13;
+			int offset = Math.round(caseLibre.getWidth()/divider);
+			TranslateAnimation animation = new TranslateAnimation(caseLibre.getLeft() + offset, caseLibre.getLeft() + offset, 0, linearLayout.getTop());
 			animation.setStartOffset(0);
 			animation.setFillAfter(true);
 			animation.setDuration(this.calculerDureeAnimation());
@@ -741,12 +747,29 @@ public class PartieMultijoueurLocale extends Activity implements OnClickListener
 			image.setEnabled(true);
 			image.setImageResource(R.drawable.case_grille);
 		}
-		
-		// R�initialiser le jeton du joueur qui commece la partie
-		_couleurJeton = 1;
-		
-		// Modifier la couleur du jeton d'animation pour le prochain joueur
-		_jetonAnimation.setImageResource(R.drawable.jeton_jaune);
+
+		// Si le joueur 2 a commence la derniere partie
+		if (_couleurJetonCommencePartiePrecedente == 2) {
+
+			// R�initialiser le jeton du joueur qui commece la partie
+			_couleurJeton = 1;
+			_couleurJetonCommencePartiePrecedente = _couleurJeton;
+
+			// Modifier la couleur du jeton d'animation pour le prochain joueur
+			_jetonAnimation.setImageResource(R.drawable.jeton_jaune);
+
+		}
+		// Si le joueur 1 a commence la derniere partie
+		else if (_couleurJetonCommencePartiePrecedente == 1) {
+
+			// R�initialiser le jeton du joueur qui commece la partie
+			_couleurJeton = 2;
+			_couleurJetonCommencePartiePrecedente = _couleurJeton;
+
+			// Modifier la couleur du jeton d'animation pour le prochain joueur
+			_jetonAnimation.setImageResource(R.drawable.jeton_rouge);
+
+		}
 		
 		// Affichage des informations du joueur
 		this.afficherInformationsJoueur();
